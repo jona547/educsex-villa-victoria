@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EducSex Villa Victoria — CECyTEM</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="top-header">
+        <div class="header-left">
+            <img src="cecytem-logo.png" alt="Logo oficial CECyTEM" class="logo-cecytem-nav" onclick="mostrarPantalla('home')" onerror="this.style.display='none'">
+            <div class="brand" onclick="mostrarPantalla('home')">
+                <span class="brand-name">EducSex Villa Victoria</span>
+            </div>
+        </div>
+
+        <nav class="nav-links" id="mainNavLinks">
+            <button type="button" class="nav-btn nav-privado" onclick="mostrarPantalla('home')">Inicio</button>
+            <button type="button" class="nav-btn nav-privado" onclick="mostrarPantalla('normativa')">Normativa</button>
+            <button type="button" class="nav-btn nav-privado" onclick="mostrarPantalla('mitos')">Mitos y Realidades</button>
+            <button type="button" class="nav-btn nav-privado" onclick="mostrarPantalla('geolocalizacion')">Centros de Salud</button>
+            <button type="button" class="nav-btn nav-privado" onclick="mostrarPantalla('chatbot')">Chatbot</button>
+            <button type="button" class="nav-btn nav-privado" onclick="mostrarPantalla('test')">Test Educativo</button>
+            <button type="button" class="nav-btn nav-privado" onclick="mostrarPantalla('estadistica')">Estadística e Impacto</button>
+            <button type="button" class="nav-btn nav-admin hidden" id="btnNavAdmin" onclick="mostrarPantalla('admin')">Panel Admin</button>
+        </nav>
+
+        <div class="header-right">
+            <button type="button" class="btn-login-nav hidden" id="btnNavLogin" onclick="mostrarPantalla('login')">Iniciar Sesión</button>
+            <div class="profile-dropdown-wrapper hidden" id="navPerfilDropdown">
+                <button type="button" class="btn-perfil-nav" onclick="toggleMenuPerfil()">
+                    <span id="navNombreUsuario">Perfil</span>
+                    <span class="avatar-mini">👤</span>
+                    <span class="caret">▾</span>
+                </button>
+                <div class="profile-menu hidden" id="menuDesplegablePerfil">
+                    <button type="button" onclick="irAPerfilSeccion('datos')">Mi Perfil</button>
+                    <button type="button" onclick="irAPerfilSeccion('seguridad')">Privacidad y Seguridad</button>
+                    <hr class="menu-divider">
+                    <button type="button" class="danger-item" onclick="cerrarSesion()">Cerrar Sesión</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="pantalla-bienvenida" class="screen active">
+        <div class="container py-4">
+            <div class="welcome-card">
+                <div class="welcome-visual-banner">
+                    <img
+                        src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=1200&q=80"
+                        alt="Jóvenes dialogando y aprendiendo en equipo"
+                        class="welcome-banner-img"
+                    >
+                    <div class="welcome-banner-overlay"></div>
+                </div>
+
+                <div class="welcome-content">
+                    <img src="cecytem-logo.png" alt="Logo oficial CECyTEM" class="welcome-logo" onerror="this.style.display='none'">
+                    <span class="badge-pill">CECyTEM • Salud Sexual y Reproductiva</span>
+                    <h1>Bienvenido a EducSex Villa Victoria</h1>
+                    <p class="welcome-lead">
+                        Tu espacio digital, moderno y confidencial para informarte, cuidar tu salud y tomar decisiones seguras en <strong>Villa Victoria, Estado de México</strong>.
+                    </p>
+
+                    <div class="welcome-description">
+                        <p>
+                            En <strong>EducSex Villa Victoria</strong> tienes información clara, actual y sin tabúes sobre salud sexual y reproductiva, prevención del embarazo adolescente e Infecciones de Transmisión Sexual (ITS), además de herramientas interactivas pensadas para ti:
+                        </p>
+                        <ul class="welcome-features">
+                            <li><strong>Chatbot Anónimo:</strong> chatea en modo privado (sin guardar registros) o público con métricas.</li>
+                            <li><strong>Centros de Salud y Mapa:</strong> ubica clínicas, hospitales y servicios gratuitos cercanos en Villa Victoria.</li>
+                            <li><strong>Mitos, Realidades y Test Educativo:</strong> pon a prueba lo que sabes y revisa tu avance.</li>
+                            <li><strong>Normativa y Estadística e Impacto:</strong> conoce tus derechos (NOM-047-SSA2-2015) y datos oficiales.</li>
+                        </ul>
+                    </div>
+
+                    <div class="welcome-actions">
+                        <button type="button" class="btn-primary welcome-btn" onclick="abrirLoginDesdeBienvenida('login')">
+                            🔐 Iniciar Sesión
+                        </button>
+                        <button type="button" class="btn-secondary welcome-btn" onclick="abrirLoginDesdeBienvenida('registro')">
+                            ✨ Crear Cuenta
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-home" class="screen">
+        <div class="container py-4">
+            <div class="hero-wireframe">
+                <span class="badge-pill">CECyTEM • Salud Sexual y Reproductiva</span>
+                <h1>Orientación Segura, Anónima y Confiable para Jóvenes en Villa Victoria</h1>
+                <p class="hero-subtitle">Salud sexual, prevención del embarazo adolescente y ubicación de centros de salud cercanos a ti en Villa Victoria, Estado de México.</p>
+                <div class="hero-actions">
+                    <button type="button" class="btn-primary" onclick="mostrarPantalla('chatbot')">💬 Hablar con el Chatbot (Anónimo)</button>
+                    <button type="button" class="btn-secondary" onclick="mostrarPantalla('geolocalizacion')">📍 Encontrar Centro de Salud</button>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-2">
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card h-100" onclick="mostrarPantalla('normativa')">
+                        <div class="module-thumb">
+                            <img src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&fit=crop&w=800&q=80" alt="Normativa y estadísticas">
+                            <span class="module-float-icon">📖</span>
+                        </div>
+                        <h3>Normativa y Estadísticas</h3>
+                        <p>Derechos sexuales y reproductivos, datos INEGI y Secretaría de Salud EDOMEX en Villa Victoria.</p>
+                        <span class="card-link">Explorar →</span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card h-100" onclick="mostrarPantalla('mitos')">
+                        <div class="module-thumb">
+                            <img src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80" alt="Mitos y realidades">
+                            <span class="module-float-icon">💡</span>
+                        </div>
+                        <h3>Mitos y Realidades</h3>
+                        <p>Desmiente falsas creencias populares con información médica y revisa tu historial.</p>
+                        <span class="card-link">Explorar Mitos →</span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card h-100" onclick="mostrarPantalla('geolocalizacion')">
+                        <div class="module-thumb">
+                            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=800&q=80" alt="Centros de salud">
+                            <span class="module-float-icon">📍</span>
+                        </div>
+                        <h3>Centros de Salud</h3>
+                        <p>Directorio y mapa interactivo de clínicas, horarios y servicios gratuitos en Villa Victoria.</p>
+                        <span class="card-link">Ver mapa →</span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card h-100" onclick="mostrarPantalla('chatbot')">
+                        <div class="module-thumb">
+                            <img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?auto=format&fit=crop&w=900&q=80" alt="Chatbot de orientación">
+                            <span class="module-float-icon">💬</span>
+                        </div>
+                        <h3>Chatbot Anónimo</h3>
+                        <p>Resuelve tus dudas en tiempo real sobre métodos anticonceptivos, ITS y clínicas cercanas.</p>
+                        <span class="card-link">Ir al Chat →</span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card h-100" onclick="mostrarPantalla('test')">
+                        <div class="module-thumb">
+                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&w=900&q=80" alt="Test educativo">
+                            <span class="module-float-icon">📝</span>
+                        </div>
+                        <h3>Test Educativo</h3>
+                        <p>Pon a prueba tus conocimientos sobre salud reproductiva y autocuidado.</p>
+                        <span class="card-link">Iniciar Test →</span>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="module-card h-100" onclick="mostrarPantalla('estadistica')">
+                        <div class="module-thumb">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=900&q=80" alt="Estadística e impacto">
+                            <span class="module-float-icon">📊</span>
+                        </div>
+                        <h3>Estadística e Impacto</h3>
+                        <p>Variables locales en Villa Victoria, impacto socioemocional y cuestionario de diagnóstico.</p>
+                        <span class="card-link">Ver Estadística y Test →</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="institutional-footer-bar mt-4">
+                <a href="https://cecytem.edomex.gob.mx/" target="_blank" rel="noopener noreferrer" class="inst-logo-box" title="Visitar sitio oficial del CECyTEM">
+                    <img src="cecytem-logo.png" alt="Logo CECyTEM" class="inst-logo-img" onerror="this.style.display='none'">
+                    <span>CECyTEM</span>
+                </a>
+                <a href="https://imssbienestar.gob.mx/" target="_blank" rel="noopener noreferrer" class="inst-logo-box" title="Visitar portal oficial de IMSS Bienestar">
+                    <span>IMSS Bienestar Villa Victoria</span>
+                </a>
+                <a href="https://www.inegi.org.mx/" target="_blank" rel="noopener noreferrer" class="inst-logo-box" title="Visitar sitio oficial del INEGI">
+                    <span>INEGI</span>
+                </a>
+                <a href="https://salud.edomex.gob.mx/isem/" target="_blank" rel="noopener noreferrer" class="inst-logo-box" title="Visitar portal oficial de Salud EDOMEX">
+                    <span>Secretaría de Salud EDOMEX</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-normativa" class="screen">
+        <div class="container py-4">
+            <button type="button" class="btn-back" onclick="mostrarPantalla('home')">← Volver al Inicio</button>
+            <div class="section-header">
+                <h2>Normativa, Derechos y Estadísticas</h2>
+                <p>Marco legal, derechos sexuales y reproductivos, variables locales e información institucional para jóvenes en Villa Victoria.</p>
+            </div>
+
+            <div class="row g-4" id="contenedorNormativa"></div>
+        </div>
+    </section>
+
+    <section id="pantalla-mitos" class="screen">
+        <div class="container py-4">
+            <button type="button" class="btn-back" onclick="mostrarPantalla('home')">← Volver al Inicio</button>
+            <div class="section-header">
+                <h2>Mitos y Realidades</h2>
+                <p>Desmiente falsas creencias populares e identifica qué afirmaciones son verdaderas o falsas.</p>
+            </div>
+
+            <div class="progress-wrapper">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressFillMito"></div>
+                </div>
+                <span class="progress-text" id="progressTextMito">Mito 1 de 8</span>
+            </div>
+
+            <div class="quiz-card" id="mitoCard">
+                <h3 id="mitoEnunciado">Cargando mito...</h3>
+                <div class="test-options" id="mitoOptionsContainer">
+                    <button type="button" onclick="responderMito(true)" id="btnMitoVerdadero" class="btn-option">✅ Verdadero / Realidad</button>
+                    <button type="button" onclick="responderMito(false)" id="btnMitoFalso" class="btn-option">❌ Falso / Mito</button>
+                </div>
+            </div>
+
+            <div class="feedback-box hidden" id="feedbackBoxMito">
+                <p id="feedbackTextMito"></p>
+                <button type="button" id="btnSiguienteMito" class="btn-primary hidden" onclick="siguienteMito()">Siguiente Mito →</button>
+            </div>
+
+            <div class="row g-4 mt-3">
+                <div class="col-12 col-md-6">
+                    <div class="history-card h-100">
+                        <h4>Progreso y Estadísticas</h4>
+                        <div id="resumenProgresoMitos" class="text-muted small">
+                            <p>Evaluaciones realizadas: <strong>0</strong></p>
+                            <p>Puntaje promedio: <strong>0%</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="history-card h-100">
+                        <h4>Historial de Evaluaciones</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr><th>Módulo</th><th>Fecha</th><th>Puntaje</th></tr>
+                            </thead>
+                            <tbody id="tablaHistorialMitos">
+                                <tr><td colspan="3" class="text-muted">Sin registros aún</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-geolocalizacion" class="screen">
+        <div class="container py-4">
+            <button type="button" class="btn-back" onclick="mostrarPantalla('home')">← Volver al Inicio</button>
+            <div class="section-header">
+                <h2>Centros de Salud y Geolocalización</h2>
+                <p>Encuentra clínicas, horarios, servicios gratuitos y rutas de atención en Villa Victoria, Estado de México.</p>
+            </div>
+
+            <div class="geo-search-bar">
+                <input type="text" id="geoSearchInput" placeholder="Buscar localidad, calle o centro de salud en Villa Victoria..." onkeyup="filtrarClinicas(event)">
+                <button type="button" class="btn-primary" onclick="buscarUbicacionPersonalizada()">🔍 Buscar en Mapa</button>
+                <button type="button" class="btn-secondary" onclick="obtenerUbicacionActual()">🎯 Mi Ubicación</button>
+            </div>
+
+            <div class="row g-4">
+                <div class="col-12 col-lg-7">
+                    <div class="map-frame-box">
+                        <iframe
+                            id="googleMapFrame"
+                            src="https://maps.google.com/maps?q=Centro%20Medico%20Villa%20Victoria,%20Jesus%20Maria&t=&z=14&ie=UTF8&iwloc=&output=embed"
+                            width="100%"
+                            height="460"
+                            style="border:0;"
+                            allowfullscreen=""
+                            loading="lazy">
+                        </iframe>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-5">
+                    <div class="clinic-list" id="listaGeoClinicas">
+                        <div class="clinic-card" id="clinic-1">
+                            <h4>🏥 Centro Médico Villa Victoria</h4>
+                            <p>📍 C. Lázaro Cárdenas MZ 014, Jesús María, Villa Victoria.</p>
+                            <p>🩺 Consulta médica general, entrega gratuita de condones, orientación anticonceptiva y consejería confidencial para adolescentes.</p>
+                            <p>🕒 Abierto las 24 horas del día.</p>
+                            <button type="button" class="btn-route" onclick="cambiarUbicacionMapa('Centro+Medico+Villa+Victoria+Jesus+Maria', 'Centro Médico Villa Victoria')">🗺️ Ver en Mapa / Ruta</button>
+                        </div>
+
+                        <div class="clinic-card" id="clinic-2">
+                            <h4>🏥 Casa de Salud San Isidro</h4>
+                            <p>📍 MZ 004, San Isidro, Villa Victoria, Estado de México.</p>
+                            <p>🩺 Medicina preventiva, talleres de salud sexual para jóvenes, planificación familiar, vacunas y consulta comunitaria.</p>
+                            <p>🕒 Lunes a Viernes de 8:00 a 16:00 hrs.</p>
+                            <button type="button" class="btn-route" onclick="cambiarUbicacionMapa('Casa+de+salud+san+Isidro+villa+victoria+estado+de+Mexico', 'Casa de Salud San Isidro')">🗺️ Ver en Mapa / Ruta</button>
+                        </div>
+
+                        <div class="clinic-card" id="clinic-3">
+                            <h4>🏥 Hospital Municipal Villa Victoria</h4>
+                            <p>📍 Carretera Toluca - Zitácuaro Km 45, Villa Victoria, Méx.</p>
+                            <p>🩺 Urgencias médicas 24/7, laboratorio clínico, atención integral juvenil, planificación familiar y salud reproductiva.</p>
+                            <p>🕒 Urgencias 24/7 • Consulta externa 8:00 a 20:00 hrs.</p>
+                            <button type="button" class="btn-route" onclick="cambiarUbicacionMapa('Hospital+Municipal+Villa+Victoria', 'Hospital Municipal Villa Victoria')">🗺️ Ver en Mapa / Ruta</button>
+                        </div>
+
+                        <div class="clinic-card" id="clinic-4">
+                            <h4>🏥 Unidad Médica DIF Comunitario</h4>
+                            <p>📍 Calle Hidalgo #45, Col. Juárez, Villa Victoria.</p>
+                            <p>🩺 Orientación psicológica, consejería para prevención del embarazo adolescente, asesoría médica básica y folletería educativa.</p>
+                            <p>🕒 Lunes a Sábado de 9:00 a 14:00 hrs.</p>
+                            <button type="button" class="btn-route" onclick="cambiarUbicacionMapa('DIF+Villa+Victoria', 'Unidad Médica DIF Comunitario')">🗺️ Ver en Mapa / Ruta</button>
+                        </div>
+
+                        <div class="clinic-card" id="clinic-5">
+                            <h4>🏥 UMF No. 243 IMSS Villa Victoria</h4>
+                            <p>📍 Av. Vialidad Lázaro Cárdenas S/N, Col. Jesús María, 50960 Villa Victoria, Méx.</p>
+                            <p>🩺 Medicina familiar, orientación reproductiva, métodos anticonceptivos y prevención de infecciones de transmisión sexual.</p>
+                            <p>🕒 Lunes a Viernes de 8:00 a 20:00 hrs.</p>
+                            <button type="button" class="btn-route" onclick="cambiarUbicacionMapa('Clinica+243+IMSS+Villa+Victoria+Estado+de+Mexico', 'UMF No. 243 IMSS Villa Victoria')">🗺️ Ver en Mapa / Ruta</button>
+                        </div>
+
+                        <div class="clinic-card" id="clinic-6">
+                            <h4>🏥 Laboratorio Médico Leben Lab</h4>
+                            <p>📍 Av. Lázaro Cárdenas S/N, Jesús María, Manzana 012, 50960 Villa Victoria, Méx.</p>
+                            <p>🩺 Análisis clínicos, pruebas de embarazo e infecciones de transmisión sexual (ITS).</p>
+                            <p>🕒 Lunes a Sábado de 7:30 a 15:00 hrs.</p>
+                            <button type="button" class="btn-route" onclick="cambiarUbicacionMapa('Av+Lazaro+Cardenas+Jesus+Maria+Villa+Victoria+Mex', 'Laboratorio Médico Leben Lab')">🗺️ Ver en Mapa / Ruta</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-chatbot" class="screen">
+        <div class="container py-4">
+            <button type="button" class="btn-back" onclick="mostrarPantalla('home')">← Volver al Inicio</button>
+            <div class="section-header">
+                <h2>Chatbot de Orientación Anónimo</h2>
+                <p>Elige si deseas que tu conversación sea privada (sin guardar nada ni mostrar al administrador) o pública.</p>
+            </div>
+
+            <div class="chat-privacy-bar mb-3" id="chatPrivacyBar">
+                <div class="chat-privacy-info">
+                    <strong>Modo de conversación:</strong>
+                    <span id="estadoModoChatTexto" class="badge-privado">🔒 Conversación Privada (No se guarda nada)</span>
+                </div>
+                <div class="chat-privacy-controls">
+                    <select id="selectModoChat" onchange="cambiarModoConversacionChat()" aria-label="Seleccionar modo de conversación">
+                        <option value="privada" selected>🔒 Privada (No guarda nada ni ve el admin)</option>
+                        <option value="publica">🌐 Pública (Registra métricas anónimas)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="chat-container">
+                <div class="chat-history" id="chatHistory">
+                    <div class="chat-msg bot">
+                        <span class="msg-author"><img src="chatbot-avatar.jpeg" alt="Bot" class="msg-avatar-icon" onerror="this.style.display='none'"> Chatbot EducSex</span>
+                        <p>¡Hola! 👋 ¿Cómo estás? Soy tu asistente virtual.<br>1. Puedes elegir arriba si quieres conversación <strong>privada</strong> o <strong>pública</strong>.<br>2. En modo <strong>privado</strong> no se guarda nada ni lo ve el administrador.<br>3. También puedes escribir <em>"privada"</em> o <em>"pública"</em>, o <em>"ver registro"</em> para consultar el estado actual.</p>
+                    </div>
+                </div>
+
+                <div class="quick-prompts">
+                    <button type="button" onclick="enviarMensajePreset('Conversación privada')">🔒 Modo Privado</button>
+                    <button type="button" onclick="enviarMensajePreset('Conversación pública')">🌐 Modo Público</button>
+                    <button type="button" onclick="enviarMensajePreset('Hola')">👋 Hola</button>
+                    <button type="button" onclick="enviarMensajePreset('Condones gratuitos')">📦 Condones gratuitos</button>
+                    <button type="button" onclick="enviarMensajePreset('Cómo usar el condón')">🛡️ ¿Cómo usar el condón?</button>
+                    <button type="button" onclick="enviarMensajePreset('Anticoncepción de emergencia')">💊 Anticoncepción de emergencia</button>
+                    <button type="button" onclick="enviarMensajePreset('Cómo usar la pastilla de emergencia')">⏱️ ¿Cómo usar la PAE?</button>
+                    <button type="button" onclick="enviarMensajePreset('Cómo usar métodos anticonceptivos')">💡 Métodos anticonceptivos</button>
+                    <button type="button" onclick="enviarMensajePreset('Cómo se contagian las ITS')">🦠 ¿Cómo se contagian las ITS?</button>
+                    <button type="button" onclick="enviarMensajePreset('Tipos de ITS')">📋 Tipos de ITS</button>
+                    <button type="button" onclick="enviarMensajePreset('Riesgo en la primera vez')">⚠️ Riesgo en la primera vez</button>
+                    <button type="button" onclick="enviarMensajePreset('Detección de ITS')">🩺 Detección de ITS</button>
+                    <button type="button" onclick="enviarMensajePreset('Confidencialidad')">🔒 Confidencialidad</button>
+                    <button type="button" onclick="mostrarPantalla('geolocalizacion')">📍 Ver Centros de Salud</button>
+                </div>
+
+                <div class="chat-input-area">
+                    <input type="text" id="chatInput" placeholder="Escribe tu duda, 'privada', 'pública' o 'ver registro'..." onkeypress="manejarEnter(event)">
+                    <button type="button" class="btn-primary" onclick="enviarMensajeUsuario()">Enviar ➔</button>
+                    <button type="button" class="btn-secondary" onclick="reiniciarChat()">🗑️ Borrar Chat</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-test" class="screen">
+        <div class="container py-4">
+            <button type="button" class="btn-back" onclick="mostrarPantalla('home')">← Volver al Inicio</button>
+            <div class="section-header">
+                <h2>Test Educativo</h2>
+                <p>Pon a prueba tus conocimientos sobre salud reproductiva y autocuidado.</p>
+            </div>
+
+            <div class="progress-wrapper">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressFillTest"></div>
+                </div>
+                <span class="progress-text" id="progressTextTest">Pregunta 1 de 8</span>
+            </div>
+
+            <div class="quiz-card" id="testCard">
+                <h3 id="testEnunciado">Cargando pregunta...</h3>
+                <div class="test-options" id="testOptionsContainer"></div>
+            </div>
+
+            <div class="feedback-box hidden" id="feedbackBoxTest">
+                <p id="feedbackTextTest"></p>
+                <button type="button" id="btnSiguienteTest" class="btn-primary hidden" onclick="siguientePreguntaTest()">Siguiente Pregunta →</button>
+            </div>
+
+            <div class="row g-4 mt-3">
+                <div class="col-12 col-md-6">
+                    <div class="history-card h-100">
+                        <h4>Progreso y Estadísticas</h4>
+                        <div id="resumenProgresoTest" class="text-muted small">
+                            <p>Evaluaciones realizadas: <strong>0</strong></p>
+                            <p>Puntaje promedio: <strong>0%</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="history-card h-100">
+                        <h4>Historial de Evaluaciones</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr><th>Módulo</th><th>Fecha</th><th>Puntaje</th></tr>
+                            </thead>
+                            <tbody id="tablaHistorialTest">
+                                <tr><td colspan="3" class="text-muted">Sin registros aún</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-estadistica" class="screen">
+        <div class="container py-4">
+            <button type="button" class="btn-back" onclick="mostrarPantalla('home')">← Volver al Inicio</button>
+            <div class="section-header">
+                <h2>Estadística e Impacto — Villa Victoria, EDOMEX</h2>
+                <p>Variables socioeconómicas y geográficas, impacto en proyecto de vida y cuestionario automatizado de evaluación.</p>
+            </div>
+
+            <div class="row g-4 mb-4">
+                <div class="col-12 col-md-4">
+                    <div class="history-card h-100">
+                        <span class="tag">INEGI • Contexto Municipal</span>
+                        <h4 class="mt-2">Variables Geográficas y Locales</h4>
+                        <p class="small text-muted mb-0">
+                            Villa Victoria combina cabecera municipal y comunidades rurales dispersas en zonas altas y de ladera, donde la distancia a clínicas, los tiempos de traslado y el acceso a información oportuna influyen en la atención preventiva juvenil.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="history-card h-100">
+                        <span class="tag">Salud EDOMEX • Prevención</span>
+                        <h4 class="mt-2">Factores Socioeconómicos</h4>
+                        <p class="small text-muted mb-0">
+                            Las brechas económicas, la deserción o rezago escolar y la falta de redes de apoyo familiar o comunitario elevan la vulnerabilidad ante el embarazo temprano y las ITS si no existen servicios amigables cercanos.
+                        </p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-4">
+                    <div class="history-card h-100">
+                        <span class="tag">IMSS Bienestar • Proyecto de Vida</span>
+                        <h4 class="mt-2">Impacto Personal y Socioemocional</h4>
+                        <p class="small text-muted mb-0">
+                            Un embarazo en la adolescencia puede interrumpir metas académicas y laborales, además de generar sobrecarga emocional. Contar con orientación confidencial y métodos anticonceptivos gratuitos protege el proyecto de vida juvenil.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="progress-wrapper">
+                <div class="progress-bar-bg">
+                    <div class="progress-bar-fill" id="progressFillImpacto"></div>
+                </div>
+                <span class="progress-text" id="progresoImpactoTexto">Pregunta 1 de 4</span>
+            </div>
+
+            <div class="quiz-card">
+                <div id="contenedorImpactoQuiz">
+                    <h3 id="preguntaImpactoEnunciado">Cargando pregunta...</h3>
+                    <div class="test-options" id="opcionesImpactoContainer"></div>
+                </div>
+
+                <div class="feedback-box hidden" id="feedbackImpactoBox">
+                    <p id="feedbackImpactoTexto" class="mb-0"></p>
+                    <button type="button" class="btn-primary" id="btnSiguienteImpacto" onclick="siguientePreguntaImpacto()">Siguiente →</button>
+                </div>
+
+                <div id="resultadoImpactoFinal" class="hidden" style="text-align: center; padding: 1rem;">
+                    <h3 id="tituloResultadoImpacto" style="color: #7dd3fc;"></h3>
+                    <p id="detalleResultadoImpacto" class="text-muted" style="margin: 10px 0 16px 0;"></p>
+                    <button type="button" class="btn-primary" onclick="reiniciarImpactoQuiz()">🔄 Repetir Cuestionario</button>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-3">
+                <div class="col-12 col-md-6">
+                    <div class="history-card h-100">
+                        <h4>Progreso y Estadísticas</h4>
+                        <div id="resumenProgresoImpacto" class="text-muted small">
+                            <p>Evaluaciones realizadas: <strong>0</strong></p>
+                            <p>Puntaje promedio: <strong>0%</strong></p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="history-card h-100">
+                        <h4>Historial de Evaluaciones</h4>
+                        <table class="mini-table">
+                            <thead>
+                                <tr><th>Módulo</th><th>Fecha</th><th>Puntaje</th></tr>
+                            </thead>
+                            <tbody id="tablaHistorialImpacto">
+                                <tr><td colspan="3" class="text-muted">Sin registros aún</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-login" class="screen">
+        <div class="auth-wrapper">
+            <div class="auth-card">
+                <img src="cecytem-logo.png" alt="Logo CECyTEM" class="auth-logo-img" onerror="this.style.display='none'">
+                <span class="badge-pill">CECyTEM • Acceso Seguro</span>
+                <h2 id="authFormTitulo">Crear Cuenta</h2>
+                <p class="text-muted small">Registra tu cuenta para comenzar o cambia a iniciar sesión si ya tienes una.</p>
+
+                <form id="formAuth">
+                    <div class="form-group" id="lblNombreOpcional">
+                        <label for="authNombre">Nombre Completo (opcional)</label>
+                        <input type="text" id="authNombre" placeholder="Ej. Jonathan Rosas">
+                    </div>
+
+                    <div class="form-group" id="campoGrupoRegistro">
+                        <label for="authGrupo">Edad o Grupo</label>
+                        <input type="text" id="authGrupo" placeholder="Ej. 17 años / 501 CECyTEM">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authCorreo">Correo electrónico</label>
+                        <input type="email" id="authCorreo" required placeholder="correo@ejemplo.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="authPassword">Contraseña</label>
+                        <input type="password" id="authPassword" required placeholder="••••••••">
+                    </div>
+
+                    <div class="role-switch-row">
+                        <span id="lblRolUsuario" class="active-role">Usuario General</span>
+                        <label class="switch">
+                            <input type="checkbox" id="switchRolAdmin" onchange="actualizarEtiquetaSwitchRol()">
+                            <span class="slider"></span>
+                        </label>
+                        <span id="lblRolAdmin">Administrador</span>
+                    </div>
+
+                    <button type="submit" id="btnSubmitAuth" class="btn-primary w-100">Registrarme</button>
+                </form>
+
+                <div class="auth-footer-links">
+                    <span id="textoAlternarAuth">¿Ya tienes cuenta?</span>
+                    <button type="button" class="link-btn" id="btnAlternarRegistro" onclick="alternarModoRegistro()"><strong>Iniciar sesión</strong></button>
+                </div>
+
+                <div class="mt-3">
+                    <button type="button" class="link-btn small" onclick="mostrarPantalla('bienvenida')">← Volver a Bienvenida</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-perfil" class="screen">
+        <div class="container py-4">
+            <button type="button" class="btn-back" onclick="mostrarPantalla('home')">← Volver al Inicio</button>
+
+            <div class="profile-shell">
+                <div class="profile-banner">
+                    <div class="profile-identity">
+                        <div class="profile-avatar-box">
+                            <div class="avatar-circle" id="perfilAvatarCirculo">👤</div>
+                            <button type="button" class="btn-secondary btn-sm-avatar" onclick="cambiarAvatarIcono()">✨ Cambiar Avatar</button>
+                        </div>
+                        <div class="profile-meta">
+                            <span class="badge-pill" id="perfilRolTexto">Rol: Usuario</span>
+                            <h2 class="profile-title">Mi Perfil EducSex</h2>
+                            <p class="profile-subtitle">Administra tus datos personales, tu grupo o edad y tus preferencias de privacidad en Villa Victoria.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="profile-body">
+                    <form id="formEditarPerfil" class="profile-form-card">
+                        <h3 class="profile-section-heading">🪪 Información de la Cuenta</h3>
+                        <p class="profile-section-desc">Actualiza cómo aparece tu nombre y tu grupo o edad dentro de la plataforma.</p>
+
+                        <div class="row g-3 mt-1">
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-0">
+                                    <label for="perfilEditNombre">Nombre Completo</label>
+                                    <input type="text" id="perfilEditNombre" required placeholder="Tu nombre completo">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-0">
+                                    <label for="perfilEditCorreo">Correo Electrónico</label>
+                                    <input type="email" id="perfilEditCorreo" disabled>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-0">
+                                    <label for="perfilEditPassword">Contraseña (cambiar)</label>
+                                    <input type="password" id="perfilEditPassword" placeholder="Dejar vacío para mantener actual">
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="form-group mb-0">
+                                    <label for="perfilEditGrupo">Edad o Grupo</label>
+                                    <input type="text" id="perfilEditGrupo" placeholder="Ej. 17 años / 501 CECyTEM">
+                                </div>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary w-100 mt-4">💾 Guardar Cambios</button>
+                    </form>
+
+                    <div class="privacy-box" id="seccionSeguridadPerfil">
+                        <h3 class="profile-section-heading">🛡️ Privacidad y Seguridad</h3>
+                        <p class="profile-section-desc">Controla cómo se manejan tus consultas en el chatbot y el guardado de tus evaluaciones.</p>
+
+                        <div class="privacy-options-list">
+                            <label class="checkbox-row">
+                                <input type="checkbox" id="chkAnonimoStats" checked>
+                                <span>Mantener anónimas mis consultas en el chatbot</span>
+                            </label>
+                            <label class="checkbox-row">
+                                <input type="checkbox" id="chkGuardarHistorial" checked>
+                                <span>Guardar historial de evaluaciones en mi perfil</span>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="pantalla-admin" class="screen">
+        <div class="container py-4">
+            <div class="admin-top-bar">
+                <div>
+                    <span class="badge-pill">SYSADMIN • MONITOREO Y AUDITORÍA EN TIEMPO REAL</span>
+                    <h2>Consola Técnica de Administración</h2>
+                    <p class="text-muted small">Auditoría de movimientos por usuario, métricas de rendimiento, gestión de base de datos y control de contenido.</p>
+                </div>
+                <div class="d-flex gap-2 flex-wrap">
+                    <button type="button" class="btn-secondary" onclick="cargarPanelAdmin()">🔄 Actualizar Consola</button>
+                    <button type="button" class="btn-secondary" onclick="exportarLogsCSV()">📥 Exportar Auditoría CSV</button>
+                    <button type="button" class="btn-primary" onclick="mostrarPantalla('home')">Ver Vista Usuario</button>
+                </div>
+            </div>
+
+            <div class="row g-3 mt-2">
+                <div class="col-6 col-lg-3">
+                    <div class="kpi-card">
+                        <span class="kpi-label">Usuarios Registrados</span>
+                        <strong class="kpi-value" id="kpiTotalUsuarios">0</strong>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="kpi-card">
+                        <span class="kpi-label">Eventos Auditados</span>
+                        <strong class="kpi-value" id="kpiTotalEventos">0</strong>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="kpi-card">
+                        <span class="kpi-label">Evaluaciones Resueltas</span>
+                        <strong class="kpi-value" id="kpiTotalEvaluaciones">0</strong>
+                    </div>
+                </div>
+                <div class="col-6 col-lg-3">
+                    <div class="kpi-card">
+                        <span class="kpi-label">Consultas Chatbot (Públicas)</span>
+                        <strong class="kpi-value" id="kpiTotalChatPublico">0</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="admin-panel-card mt-4">
+                <div class="admin-panel-header">
+                    <div>
+                        <h3>📡 Bitácora Técnica de Movimientos (Audit Log)</h3>
+                        <p class="text-muted small mb-0">Registro cronológico de acciones ejecutadas en la plataforma (las conversaciones privadas del chatbot no se registran).</p>
+                    </div>
+                    <div class="admin-toolbar">
+                        <select id="adminFiltroModulo" class="admin-select" onchange="filtrarLogsAdmin()">
+                            <option value="">Todos los módulos</option>
+                            <option value="Autenticación">Autenticación</option>
+                            <option value="Navegación">Navegación</option>
+                            <option value="Mitos y Realidades">Mitos y Realidades</option>
+                            <option value="Test Educativo">Test Educativo</option>
+                            <option value="Estadística e Impacto">Estadística e Impacto</option>
+                            <option value="Geolocalización">Geolocalización</option>
+                            <option value="Chatbot">Chatbot (Público)</option>
+                            <option value="Perfil">Perfil</option>
+                            <option value="Administración">Administración</option>
+                        </select>
+                        <input type="text" id="adminBuscarLog" placeholder="Filtrar por usuario, acción o detalle..." onkeyup="filtrarLogsAdmin()">
+                    </div>
+                </div>
+
+                <div class="table-responsive admin-scroll-box">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Fecha / Hora</th>
+                                <th>Usuario</th>
+                                <th>Rol</th>
+                                <th>Módulo</th>
+                                <th>Acción</th>
+                                <th>Detalle Técnico</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tablaAdminLogsBody">
+                            <tr><td colspan="6" class="text-muted">Cargando registros de auditoría...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-1">
+                <div class="col-12 col-lg-7">
+                    <div class="admin-panel-card h-100">
+                        <div class="admin-panel-header">
+                            <h3>👥 Usuarios Registrados y Actividad</h3>
+                            <input type="text" id="adminBuscarUsuario" class="admin-search-mini" placeholder="Buscar usuario o correo..." onkeyup="filtrarTablaAdminUsuarios()">
+                        </div>
+                        <div class="table-responsive admin-scroll-box">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Nombre</th>
+                                        <th>Correo</th>
+                                        <th>Grupo / Edad</th>
+                                        <th>Rol</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminUsuariosBody">
+                                    <tr><td colspan="4" class="text-muted">Cargando usuarios...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-5">
+                    <div class="admin-panel-card h-100">
+                        <h3>📊 Resultados de Evaluaciones por Usuario</h3>
+                        <p class="text-muted small">Últimos puntajes obtenidos en Test Educativo, Mitos y Estadística e Impacto.</p>
+                        <div class="table-responsive admin-scroll-box">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <th>Módulo</th>
+                                        <th>Puntaje</th>
+                                        <th>Fecha</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminEvaluacionesBody">
+                                    <tr><td colspan="4" class="text-muted">Cargando evaluaciones...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row g-4 mt-1">
+                <div class="col-12 col-lg-8">
+                    <div class="admin-panel-card">
+                        <div class="admin-panel-header">
+                            <h3>🏥 Gestión de Centros de Salud (Base de Datos)</h3>
+                            <div class="admin-toolbar">
+                                <input type="text" id="adminBuscarCentro" placeholder="Buscar centro..." onkeyup="filtrarTablaAdminCentros()">
+                                <button type="button" class="btn-primary" onclick="toggleFormNuevoCentro()">+ Nuevo Centro</button>
+                            </div>
+                        </div>
+
+                        <form id="formAdminCentro" class="hidden admin-subform mb-3">
+                            <div class="row g-2">
+                                <div class="col-12 col-md-6"><input type="text" id="adminCentroNombre" placeholder="Nombre del centro" required></div>
+                                <div class="col-12 col-md-6"><input type="text" id="adminCentroInst" placeholder="Institución (Ej. IMSS Bienestar)" required></div>
+                                <div class="col-12"><input type="text" id="adminCentroDir" placeholder="Dirección en Villa Victoria" required></div>
+                                <div class="col-12"><input type="text" id="adminCentroServicios" placeholder="Servicios para jóvenes"></div>
+                                <div class="col-6"><input type="number" step="any" id="adminCentroLat" placeholder="Latitud (Ej. 19.438)" required></div>
+                                <div class="col-6"><input type="number" step="any" id="adminCentroLng" placeholder="Longitud (Ej. -99.998)" required></div>
+                            </div>
+                            <button type="submit" class="btn-primary mt-2">Guardar Centro</button>
+                        </form>
+
+                        <div class="table-responsive">
+                            <table class="admin-table">
+                                <thead>
+                                    <tr>
+                                        <th>Centro</th>
+                                        <th>Dirección</th>
+                                        <th>Servicios</th>
+                                        <th>Acción</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="tablaAdminCentrosBody">
+                                    <tr><td colspan="4" class="text-muted">Cargando centros...</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-lg-4">
+                    <div class="admin-panel-card mb-3">
+                        <h4>📖 Agregar Contenido Normativo / INEGI</h4>
+                        <form id="formAdminNormativa">
+                            <div class="form-group">
+                                <label for="adminNormTitulo">Título</label>
+                                <input type="text" id="adminNormTitulo" required placeholder="Ej. Estadística Embarazo Adolescente">
+                            </div>
+                            <div class="form-group">
+                                <label for="adminNormFuente">Fuente Institucional</label>
+                                <input type="text" id="adminNormFuente" required placeholder="Ej. INEGI / Salud EDOMEX">
+                            </div>
+                            <div class="form-group">
+                                <label for="adminNormCategoria">Categoría</label>
+                                <input type="text" id="adminNormCategoria" required placeholder="Ej. Estadística / Derechos">
+                            </div>
+                            <div class="form-group">
+                                <label for="adminNormResumen">Resumen</label>
+                                <textarea id="adminNormResumen" rows="3" required placeholder="Resumen del contenido..."></textarea>
+                            </div>
+                            <button type="submit" class="btn-primary w-100">Publicar Contenido</button>
+                        </form>
+                    </div>
+
+                    <div class="admin-panel-card">
+                        <h4>💬 Temas Consultados (Chatbot Público)</h4>
+                        <div id="estadisticasChatLista" class="mt-2">
+                            <p class="text-muted small">Sin consultas registradas aún.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="app-footer">
+        <p>EducSex Villa Victoria © 2026 — CECyTEM • Proyecto Escolar Comunitario (PEC)</p>
+        <p>Línea de la Vida (Orientación y apoyo nacional gratuito): <strong>800 911 2000</strong></p>
+    </footer>
+
+    <script type="module" src="script.js"></script>
+</body>
+</html>
